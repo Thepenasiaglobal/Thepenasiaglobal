@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Design & Prompting Mastery — PEN Global</title>
+<style>
+  :root{
+    --black:#0c0c0c;
+    --panel:#141414;
+    --gold:#c9a227;
+    --gold-soft:#e4c766;
+    --green:#0d3d2e;
+    --cream:#f6f1e4;
+    --ink:#1c1c1c;
+    --muted:#8a8a83;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--black);
+    color:var(--cream);
+    font-family:"Iowan Old Style","Palatino Linotype",Georgia,serif;
+    line-height:1.55;
+  }
+  .sans{font-family:"Avenir Next","Segoe UI",Helvetica,Arial,sans-serif;}
+  a{color:inherit;}
+  .wrap{max-width:980px;margin:0 auto;padding:0 28px;}
+
+  /* Header */
+  header{
+    padding:22px 0 18px;
+    border-bottom:1px solid rgba(201,162,39,0.25);
+  }
+  .brandrow{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;}
+  .seal{
+    width:46px;height:46px;border-radius:50%;
+    border:1.5px solid var(--gold);
+    display:flex;align-items:center;justify-content:center;
+    font-size:20px;color:var(--gold);
+    flex:none;
+  }
+  .brandname{display:flex;align-items:center;gap:12px;}
+  .brandname .t1{font-size:15px;letter-spacing:1px;color:var(--gold-soft);font-family:"Avenir Next",sans-serif;}
+  .brandname .t2{font-size:11px;color:var(--muted);font-family:"Avenir Next",sans-serif;}
+
+  /* Hero */
+  .hero{padding:74px 0 56px;}
+  .kicker{
+    color:var(--gold-soft);
+    font-family:"Avenir Next",sans-serif;
+    font-size:14px;
+    margin-bottom:18px;
+  }
+  h1{
+    font-size:52px;
+    line-height:1.08;
+    margin:0 0 22px;
+    color:#fff;
+    font-weight:600;
+    max-width:760px;
+  }
+  .lede{
+    font-size:19px;
+    color:#cfcabc;
+    max-width:600px;
+    margin:0 0 34px;
+  }
+  .price-row{
+    display:flex;
+    gap:28px;
+    align-items:baseline;
+    flex-wrap:wrap;
+    margin-bottom:34px;
+  }
+  .price{font-size:34px;color:var(--gold-soft);font-family:"Avenir Next",sans-serif;font-weight:600;}
+  .price small{font-size:15px;color:var(--muted);font-weight:400;margin-left:10px;}
+  .strike{color:var(--muted);text-decoration:line-through;font-size:18px;font-family:"Avenir Next",sans-serif;}
+
+  .cta{
+    display:inline-block;
+    background:var(--gold);
+    color:#151100;
+    font-family:"Avenir Next",sans-serif;
+    font-weight:700;
+    font-size:16px;
+    padding:15px 30px;
+    text-decoration:none;
+    border-radius:2px;
+  }
+  .cta-ghost{
+    display:inline-block;
+    margin-left:16px;
+    color:var(--cream);
+    font-family:"Avenir Next",sans-serif;
+    font-size:15px;
+    text-decoration:underline;
+    text-underline-offset:4px;
+  }
+
+  .meta-strip{
+    font-family:"Avenir Next",sans-serif;
+    font-size:13px;
+    color:var(--muted);
+    margin-top:26px;
+    display:flex;flex-wrap:wrap;
+  }
+  .meta-strip span{margin-right:26px;}
+  .meta-strip span b{color:var(--cream);}
+
+  /* Section divider */
+  .divider{height:1px;background:linear-gradient(90deg,transparent,rgba(201,162,39,0.4),transparent);}
+
+  section{padding:60px 0;}
+  h2{
+    font-size:30px;
+    color:#fff;
+    margin:0 0 30px;
+    font-weight:600;
+  }
+
+  /* who it's for */
+  .who-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:20px 40px;
+  }
+  .who-item{
+    display:flex;gap:14px;
+    padding:18px 0;
+    border-top:1px solid rgba(255,255,255,0.08);
+  }
+  .who-item .mark{color:var(--gold);font-size:20px;line-height:1.3;margin-right:14px;}
+  .who-item p{margin:0;font-family:"Avenir Next",sans-serif;font-size:15px;color:#d8d4c6;}
+
+  /* curriculum weeks */
+  .week{
+    display:grid;
+    grid-template-columns:120px 1fr;
+    gap:26px;
+    padding:26px 0;
+    border-top:1px solid rgba(255,255,255,0.08);
+  }
+  .week:last-child{border-bottom:1px solid rgba(255,255,255,0.08);}
+  .week .wk{
+    font-family:"Avenir Next",sans-serif;
+    color:var(--gold-soft);
+    font-size:13px;
+    letter-spacing:0.5px;
+    padding-top:4px;
+    margin-right:26px;
+  }
+  .week h3{margin:0 0 10px;font-size:21px;color:#fff;font-weight:600;}
+  .week ul{margin:0;padding-left:18px;color:#c9c4b6;font-size:15px;}
+  .week li{margin-bottom:6px;}
+
+  /* certificate strip */
+  .cert-block{
+    background:var(--green);
+    border-radius:6px;
+    padding:44px 42px;
+    display:grid;
+    grid-template-columns:1fr 200px;
+    gap:30px;
+    align-items:center;
+  }
+  .cert-block h3{margin:0 0 12px;font-size:24px;color:#fff;font-weight:600;}
+  .cert-block p{margin:0;color:#d9e6de;font-family:"Avenir Next",sans-serif;font-size:15px;max-width:460px;}
+  .cert-seal{
+    width:150px;height:150px;border-radius:50%;
+    border:2px solid var(--gold-soft);
+    margin:0 auto;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    color:var(--gold-soft);
+    font-family:"Avenir Next",sans-serif;
+    text-align:center;
+  }
+  .cert-seal .big{font-size:30px;line-height:1;margin-bottom:4px;}
+  .cert-seal .small{font-size:9px;letter-spacing:1px;padding:0 14px;}
+
+  /* pricing card */
+  .price-card{
+    border:1px solid rgba(201,162,39,0.4);
+    border-radius:6px;
+    padding:36px;
+    max-width:520px;
+    margin:0 auto;
+    text-align:center;
+  }
+  .price-card .amount{font-size:44px;color:var(--gold-soft);font-family:"Avenir Next",sans-serif;font-weight:700;}
+  .price-card .sub{font-family:"Avenir Next",sans-serif;color:var(--muted);font-size:13px;margin-top:4px;}
+  .price-card ul{
+    text-align:left;
+    list-style:none;padding:0;margin:26px 0;
+    font-family:"Avenir Next",sans-serif;
+    color:#d8d4c6;font-size:14px;
+  }
+  .price-card li{padding:8px 0;border-top:1px solid rgba(255,255,255,0.08);}
+  .price-card li:first-child{border-top:none;}
+
+  footer{
+    padding:36px 0 60px;
+    font-family:"Avenir Next",sans-serif;
+    font-size:13px;
+    color:var(--muted);
+    text-align:center;
+  }
+
+  @media (max-width:680px){
+    h1{font-size:34px;}
+    .who-grid{grid-template-columns:1fr;}
+    .week{grid-template-columns:1fr;}
+    .cert-block{grid-template-columns:1fr;text-align:center;}
+    .cert-seal{margin:0 auto;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap brandrow">
+    <div class="brandname">
+      <div class="seal">✒</div>
+      <div>
+        <div class="t1">PEN GLOBAL</div>
+        <div class="t2">Professional Excellence Network</div>
+      </div>
+    </div>
+    <div class="sans" style="font-size:13px;color:var(--muted);">Empowering Professionals · Celebrating Excellence</div>
+  </div>
+</header>
+
+<div class="wrap hero">
+  <div class="kicker sans">NEW COURSE — ENROLLING NOW</div>
+  <h1>Learn to design and create with ChatGPT and Claude, in one month.</h1>
+  <p class="lede">A practical, hands-on course for freelancers, students, and creatives who want to use AI with real skill — not guesswork. Finish with a project you can show, and a PEN Global certificate.</p>
+
+  <div class="price-row">
+    <div class="price">PKR 4,999 <small>one-time</small></div>
+    <div class="strike">PKR 8,000</div>
+  </div>
+
+  <a href="#enroll" class="cta">Enroll for this cohort</a>
+  <a href="#curriculum" class="cta-ghost">See the curriculum</a>
+
+  <div class="meta-strip">
+    <span><b>4 weeks</b> · self-paced</span>
+    <span><b>2–3 hrs</b> / week</span>
+    <span><b>Certificate</b> on completion</span>
+    <span><b>Beginner</b> friendly</span>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<section>
+  <div class="wrap">
+    <h2>Who this is for</h2>
+    <div class="who-grid">
+      <div class="who-item"><div class="mark">✒</div><p>Freelancers and small business owners who want AI to speed up real client work.</p></div>
+      <div class="who-item"><div class="mark">✒</div><p>Students and job seekers building a skill employers are now asking for.</p></div>
+      <div class="who-item"><div class="mark">✒</div><p>Designers, marketers, and content creators exploring AI-assisted workflows.</p></div>
+      <div class="who-item"><div class="mark">✒</div><p>Complete beginners — no coding or design background required.</p></div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section id="curriculum">
+  <div class="wrap">
+    <h2>What you'll learn, week by week</h2>
+
+    <div class="week">
+      <div class="wk">WEEK 01</div>
+      <div>
+        <h3>AI Foundations — Meet Your Tools</h3>
+        <ul>
+          <li>What ChatGPT and Claude actually are, explained in plain language</li>
+          <li>Where each tool is stronger, and when to reach for which one</li>
+          <li>Setting up and navigating both platforms with confidence</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="week">
+      <div class="wk">WEEK 02</div>
+      <div>
+        <h3>Prompt Engineering Essentials</h3>
+        <ul>
+          <li>The anatomy of a prompt that actually gets a useful answer</li>
+          <li>Giving examples the AI can learn your style from</li>
+          <li>Turning a flat, generic answer into something sharp</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="week">
+      <div class="wk">WEEK 03</div>
+      <div>
+        <h3>AI for Design & Creative Work</h3>
+        <ul>
+          <li>Writing prompts for briefs, taglines, and creative concepts</li>
+          <li>Prompting image tools like Midjourney and DALL-E with precision</li>
+          <li>Building a social media carousel from idea to finished copy</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="week">
+      <div class="wk">WEEK 04</div>
+      <div>
+        <h3>Applied Projects & Capstone</h3>
+        <ul>
+          <li>Chaining prompts into a real, repeatable workflow</li>
+          <li>Building your own project: a brand kit, portfolio piece, or content pack</li>
+          <li>Peer feedback, instructor review, and certification</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section>
+  <div class="wrap">
+    <h2>Get certified</h2>
+    <div class="cert-block">
+      <div>
+        <h3>PEN Global Certificate of Completion</h3>
+        <p>Finish your capstone project and receive a signed, uniquely numbered certificate you can add to your portfolio, LinkedIn, and CV — backed by the PEN Global seal.</p>
+      </div>
+      <div class="cert-seal">
+        <div class="big">✒</div>
+        <div class="small">PEN GLOBAL · CERTIFIED</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section id="enroll">
+  <div class="wrap">
+    <h2 style="text-align:center;">Reserve your seat</h2>
+    <div class="price-card">
+      <div class="amount">PKR 4,999</div>
+      <div class="sub">Early-bird price for this cohort · one-time payment</div>
+      <ul>
+        <li>4 weeks of video lessons + worksheets</li>
+        <li>Private group for questions and feedback</li>
+        <li>Weekly live Q&A session</li>
+        <li>Capstone review by instructor</li>
+        <li>PEN Global Certificate of Completion</li>
+      </ul>
+      <a href="#" class="cta" style="width:100%;">Enroll now</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    PEN Global · Professional Excellence Network — Asia<br>
+    Empowering Professionals · Celebrating Excellence · Connecting Asia
+  </div>
+</footer>
+
+</body>
+</html>
